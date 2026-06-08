@@ -11,6 +11,10 @@ module.exports = {
   	extend: {
       fontFamily: {
         inter: ['var(--font-inter)'],
+        heading: ['var(--font-heading)'],
+        body: ['var(--font-body)'],
+        display: ['var(--font-display)'],
+        mono: ['var(--font-mono)'],
       },
   		borderRadius: {
   			lg: 'var(--radius)',
