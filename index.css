@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    --text-foreground: 0 0% 0%;
+    
+    --background: 0 0% 97%;
+    --foreground: 230 25% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 15%;
+    --primary: 320 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 10% 94%;
+    --muted-foreground: 230 10% 45%;
+    --accent: 195 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 90%;
+    --input: 240 10% 90%;
+    --ring: 320 85% 55%;
+    --radius: 0.75rem;
+
+    --glow-pink: 320 85% 55%;
+    --glow-purple: 260 60% 55%;
+    --glow-blue: 200 90% 50%;
+    --glow-cyan: 185 80% 55%;
+    --navy: 230 80% 5%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 230 25% 15%;
+    --sidebar-primary: 320 85% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 320 85% 96%;
+    --sidebar-accent-foreground: 320 85% 55%;
+    --sidebar-border: 240 10% 92%;
+    --sidebar-ring: 320 85% 55%;
+  }
+
+  .dark {
+    --background: 230 80% 5%;
+    --foreground: 0 0% 100%;
+    --text-foreground: 0 0% 100%;
+    --card: 230 50% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 230 50% 10%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 320 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 230 30% 15%;
+    --muted-foreground: 230 10% 55%;
+    --accent: 195 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 30% 18%;
+    --input: 230 30% 18%;
+    --ring: 320 85% 55%;
+
+    --sidebar-background: 230 50% 8%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 320 85% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 40% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 230 30% 18%;
+    --sidebar-ring: 320 85% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+
+  /* Dark mode premium background with ambient lighting */
+  .dark {
+    background: 
+      radial-gradient(ellipse at 15% 10%, rgba(236, 44, 163, 0.10) 0%, transparent 28%),
+      radial-gradient(ellipse at 85% 15%, rgba(14, 165, 233, 0.10) 0%, transparent 24%),
+      radial-gradient(ellipse at 50% 90%, rgba(124, 58, 237, 0.08) 0%, transparent 32%),
+      linear-gradient(180deg, #050816 0%, #060912 100%);
+    background-attachment: fixed;
+  }
+}
+
+/* Dark mode select/option styling */
+.dark select {
+  color-scheme: dark;
+  background-color: hsl(var(--input));
+  color: hsl(var(--foreground));
+}
+
+.dark select option {
+  background-color: hsl(230 50% 10%);
+  color: hsl(var(--foreground));
+}
+
+/* Widget spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Glow effects */
+.glow-pink {
+  box-shadow: 0 0 20px hsl(320 85% 55% / 0.3), 0 0 60px hsl(320 85% 55% / 0.1);
+}
+.glow-purple {
+  box-shadow: 0 0 20px hsl(260 60% 55% / 0.3), 0 0 60px hsl(260 60% 55% / 0.1);
+}
+.glow-blue {
+  box-shadow: 0 0 20px hsl(200 90% 50% / 0.3), 0 0 60px hsl(200 90% 50% / 0.1);
+}
+.glow-cyan {
+  box-shadow: 0 0 20px hsl(185 80% 55% / 0.3), 0 0 60px hsl(185 80% 55% / 0.1);
+}
+
+/* Glass effect */
+.glass {
+  background: hsl(var(--card) / 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+.dark .glass {
+  background: hsl(230 50% 10% / 0.6);
+  border: 1px solid hsl(230 30% 25% / 0.4);
+}
+
+/* Gradient mesh background */
+.mesh-gradient {
+  background: 
+    radial-gradient(ellipse at 15% 10%, hsl(320 85% 55% / 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, hsl(195 90% 50% / 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, hsl(260 60% 55% / 0.04) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 15%, hsl(185 80% 55% / 0.05) 0%, transparent 40%);
+}
+
+.dark .mesh-gradient {
+  background: 
+    radial-gradient(ellipse at 20% 20%, hsl(320 85% 55% / 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, hsl(260 60% 55% / 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, hsl(195 90% 50% / 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 10%, hsl(185 80% 55% / 0.08) 0%, transparent 40%);
+}
