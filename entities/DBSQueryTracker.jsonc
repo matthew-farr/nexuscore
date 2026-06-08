@@ -1,0 +1,127 @@
+{
+  "name": "DBSQueryTracker",
+  "type": "object",
+  "properties": {
+    "date_received": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the CJSM query was received"
+    },
+    "eref": {
+      "type": "string",
+      "description": "DBS External Reference number"
+    },
+    "our_ref": {
+      "type": "string",
+      "description": "Our internal reference number"
+    },
+    "company_name": {
+      "type": "string",
+      "description": "Client/company name"
+    },
+    "query_type": {
+      "type": "string",
+      "description": "Type of query"
+    },
+    "query_type_other": {
+      "type": "string",
+      "description": "Custom query type when query_type = Other"
+    },
+    "agent_assigned": {
+      "type": "string",
+      "description": "Email or name of assigned agent"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "New CJSM",
+        "Sent to Client",
+        "Waiting on Client",
+        "Client Chased",
+        "Client Responded",
+        "Responded to DBS",
+        "Further Clarification Required",
+        "Withdrawn",
+        "Duplicated",
+        "Cancelled"
+      ],
+      "default": "Sent to Client",
+      "description": "Current stage of the query"
+    },
+    "date_sent_to_client": {
+      "type": "string",
+      "format": "date",
+      "description": "Date query was sent to client"
+    },
+    "date_client_replied": {
+      "type": "string",
+      "format": "date",
+      "description": "Date client responded"
+    },
+    "date_replied_to_dbs": {
+      "type": "string",
+      "format": "date",
+      "description": "Date response was sent to DBS"
+    },
+    "date_resent_chased": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of most recent follow-up/chase"
+    },
+    "client_response": {
+      "type": "string",
+      "description": "Client's response to the query"
+    },
+    "response_sent_to_dbs": {
+      "type": "string",
+      "description": "Response sent back to DBS"
+    },
+    "action_taken_summary": {
+      "type": "string",
+      "description": "Summary of action taken"
+    },
+    "further_clarification_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether further clarification is needed"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "CJSM",
+        "Email",
+        "Phone",
+        "Internal",
+        "Other"
+      ],
+      "default": "CJSM",
+      "description": "Source of the query"
+    }
+  },
+  "required": [
+    "date_received",
+    "company_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

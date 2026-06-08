@@ -1,0 +1,63 @@
+{
+  "name": "Skill",
+  "type": "object",
+  "properties": {
+    "skill_name": {
+      "type": "string",
+      "description": "Name of the skill"
+    },
+    "skill_category": {
+      "type": "string",
+      "enum": [
+        "DBS Checks",
+        "Employment Screening",
+        "Checks Direct Portal",
+        "Customer Service",
+        "Sales / Account Management",
+        "Compliance",
+        "Systems & Tools",
+        "Internal Processes",
+        "Management / Leadership"
+      ],
+      "description": "Skill category"
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments this skill applies to (e.g. Sales, Admin, Operations)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the skill"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this skill is in active use"
+    }
+  },
+  "required": [
+    "skill_name",
+    "skill_category"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

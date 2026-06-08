@@ -1,0 +1,89 @@
+{
+  "name": "DBSEscalation",
+  "type": "object",
+  "properties": {
+    "eref": {
+      "type": "string",
+      "description": "External reference / Tracking Code - unique identifier"
+    },
+    "dbs_submitted_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date DBS was submitted (SubmitDate)"
+    },
+    "company": {
+      "type": "string",
+      "description": "Company name (CompanyName)"
+    },
+    "company_id": {
+      "type": "string",
+      "description": "Company ID (CompanyId)"
+    },
+    "surname": {
+      "type": "string",
+      "description": "Applicant surname (Surname)"
+    },
+    "application_ref": {
+      "type": "string",
+      "description": "Application reference number (ApplicationRef)"
+    },
+    "escalated_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date escalation was triggered (EscalationDate)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "LPF DETAILS",
+        "WITHDRAWN",
+        "ESCALATED",
+        "DUE TO BE ESCALATED",
+        "UNABLE TO ESCALATE ONLINE",
+        "CJSM",
+        "INTERNAL QUERY - INCONFLICT"
+      ],
+      "description": "Current status"
+    },
+    "police_details": {
+      "type": "string",
+      "description": "Local police force name"
+    },
+    "account_manager": {
+      "type": "string",
+      "description": "Account manager name or email"
+    },
+    "escalated_agent": {
+      "type": "string",
+      "description": "Escalated agent name or email"
+    }
+  },
+  "required": [
+    "eref"
+  ],
+  "unique_fields": [
+    "eref"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

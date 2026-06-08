@@ -1,0 +1,103 @@
+{
+  "name": "FeatureGuide",
+  "type": "object",
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "description": "Linked FeatureRelease record ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Guide title"
+    },
+    "feature_area": {
+      "type": "string",
+      "description": "Which area of the platform this guide covers"
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line summary for staff"
+    },
+    "what_changed": {
+      "type": "string",
+      "description": "What has changed in plain English"
+    },
+    "why_it_matters": {
+      "type": "string",
+      "description": "Why this change matters to staff"
+    },
+    "how_to_use_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Step-by-step instructions"
+    },
+    "what_to_expect": {
+      "type": "string",
+      "description": "What staff should expect after this change"
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Screenshot URLs"
+    },
+    "related_page_url": {
+      "type": "string",
+      "description": "Internal route or external URL to the related page"
+    },
+    "related_knowledge_article_id": {
+      "type": "string",
+      "description": "Linked KnowledgeDocument ID"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Author display name"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Published",
+        "Archived"
+      ],
+      "default": "Draft",
+      "description": "Visibility status"
+    }
+  },
+  "required": [
+    "release_id",
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "Published"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "name": "SalesHubQuickLink",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Button label"
+    },
+    "description": {
+      "type": "string",
+      "description": "Tooltip or short description"
+    },
+    "url": {
+      "type": "string",
+      "description": "Target URL"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name"
+    },
+    "colour_theme": {
+      "type": "string",
+      "enum": [
+        "cyan",
+        "purple",
+        "pink",
+        "green",
+        "amber",
+        "red",
+        "blue"
+      ],
+      "default": "cyan",
+      "description": "Color theme for the button"
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Display order (ascending)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether link is visible"
+    },
+    "open_in_new_tab": {
+      "type": "boolean",
+      "default": true,
+      "description": "Open URL in new tab"
+    },
+    "badge_text": {
+      "type": "string",
+      "description": "Optional badge label"
+    },
+    "category": {
+      "type": "string",
+      "description": "Grouping category"
+    },
+    "role_visibility": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see (empty = all)"
+    },
+    "department_visibility": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can see (empty = all)"
+    }
+  },
+  "required": [
+    "title",
+    "url",
+    "icon"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true,
+          "data.role_visibility": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.is_active": true,
+          "data.department_visibility": {
+            "$in": [
+              "{{user.data.department}}"
+            ]
+          }
+        },
+        {
+          "data.is_active": true,
+          "data.role_visibility": []
+        },
+        {
+          "data.is_active": true,
+          "data.department_visibility": []
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

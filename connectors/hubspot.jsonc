@@ -1,0 +1,13 @@
+{
+  "type": "hubspot",
+  "scopes": [
+    "tickets",
+    "crm.objects.contacts.read",
+    "crm.objects.companies.read",
+    "crm.objects.owners.read",
+    "crm.objects.custom.read",
+    "crm.objects.custom.write",
+    "oauth",
+    "sales-email-read"
+  ]
+}

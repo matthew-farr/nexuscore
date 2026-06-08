@@ -1,0 +1,88 @@
+{
+  "name": "AppPublish",
+  "type": "object",
+  "properties": {
+    "version_number": {
+      "type": "string",
+      "description": "Full version number (e.g. V26.23.01.21:19)"
+    },
+    "version_year": {
+      "type": "string",
+      "description": "2-digit year (e.g. 26)"
+    },
+    "version_week": {
+      "type": "string",
+      "description": "ISO week number, 2 digits (e.g. 23)"
+    },
+    "version_build": {
+      "type": "string",
+      "description": "Build number for that week, 2 digits (e.g. 01)"
+    },
+    "publish_time": {
+      "type": "string",
+      "description": "Publish time in HH:mm format (e.g. 21:19)"
+    },
+    "published_by": {
+      "type": "string",
+      "description": "Name of user who published"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of when published"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Summary of changes in this publish"
+    },
+    "linked_feature_release_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of FeatureRelease IDs published in this app version"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "published",
+        "archived"
+      ],
+      "default": "published",
+      "description": "Publication status"
+    }
+  },
+  "required": [
+    "version_number",
+    "published_date"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "published"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

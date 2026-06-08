@@ -1,0 +1,88 @@
+{
+  "name": "AppDeployment",
+  "type": "object",
+  "properties": {
+    "deployment_version": {
+      "type": "string",
+      "description": "Full deployment version in VYY.WW.BB.HH:mm format (e.g. V26.23.01.18:42)"
+    },
+    "version_year": {
+      "type": "string",
+      "description": "2-digit year (e.g. 26)"
+    },
+    "version_week": {
+      "type": "string",
+      "description": "ISO week number, 2 digits (e.g. 23)"
+    },
+    "version_build": {
+      "type": "string",
+      "description": "Build number for that year/week, 2 digits (e.g. 01) \u2014 resets each ISO week"
+    },
+    "deployment_time": {
+      "type": "string",
+      "description": "Deployment time in HH:mm format (e.g. 18:42)"
+    },
+    "deployed_by": {
+      "type": "string",
+      "description": "Name of user who deployed"
+    },
+    "deployed_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Exact datetime when deployed"
+    },
+    "deployment_summary": {
+      "type": "string",
+      "description": "Summary of changes in this deployment"
+    },
+    "linked_feature_release_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of FeatureRelease IDs included in this deployment"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "archived"
+      ],
+      "default": "active",
+      "description": "Deployment status"
+    }
+  },
+  "required": [
+    "deployment_version",
+    "deployed_date"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "active"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

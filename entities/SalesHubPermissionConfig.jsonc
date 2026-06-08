@@ -1,0 +1,53 @@
+{
+  "name": "SalesHubPermissionConfig",
+  "type": "object",
+  "properties": {
+    "permission_key": {
+      "type": "string",
+      "description": "Unique permission identifier"
+    },
+    "allowed_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that have this permission"
+    },
+    "description": {
+      "type": "string",
+      "description": "Permission description"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether permission is active"
+    }
+  },
+  "required": [
+    "permission_key",
+    "allowed_roles",
+    "description"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

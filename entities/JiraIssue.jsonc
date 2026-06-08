@@ -1,0 +1,185 @@
+{
+  "name": "JiraIssue",
+  "type": "object",
+  "properties": {
+    "issue_key": {
+      "type": "string",
+      "description": "Jira issue key (e.g. PROJ-123)"
+    },
+    "issue_id": {
+      "type": "string",
+      "description": "Jira internal issue ID"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Issue title/summary"
+    },
+    "description": {
+      "type": "string",
+      "description": "Issue description/details"
+    },
+    "environment": {
+      "type": "string",
+      "description": "Environment details (location, browser, screen res, etc.)"
+    },
+    "issue_type": {
+      "type": "string",
+      "description": "Issue type (Bug, Support, BAU Project, Epic)"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status (To Do, In Progress, etc.)"
+    },
+    "status_category": {
+      "type": "string",
+      "description": "Status category (To Do, In Progress, Done)"
+    },
+    "priority": {
+      "type": "string",
+      "description": "Priority level (Highest, High, Medium, Low, Lowest)"
+    },
+    "assignee_name": {
+      "type": "string",
+      "description": "Assigned person display name"
+    },
+    "assignee_email": {
+      "type": "string",
+      "description": "Assigned person email"
+    },
+    "reporter_name": {
+      "type": "string",
+      "description": "Reporter display name"
+    },
+    "reporter_email": {
+      "type": "string",
+      "description": "Reporter email"
+    },
+    "creator_name": {
+      "type": "string",
+      "description": "Creator display name"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Due date"
+    },
+    "story_points": {
+      "type": "number",
+      "description": "Story points estimate"
+    },
+    "sprint": {
+      "type": "string",
+      "description": "Sprint assignment"
+    },
+    "staff_email": {
+      "type": "string",
+      "description": "Staff Email custom field from Jira (customfield_10047)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the issue was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the issue was last updated"
+    },
+    "resolved_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the issue was resolved"
+    },
+    "issue_url": {
+      "type": "string",
+      "description": "Direct link to Jira issue"
+    },
+    "project_key": {
+      "type": "string",
+      "description": "Project key (e.g. PROJ)"
+    },
+    "project_name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "resolution": {
+      "type": "string",
+      "description": "Resolution status (Fixed, Won't Fix, etc.)"
+    },
+    "category": {
+      "type": "string",
+      "description": "Custom field: Category if available"
+    },
+    "department": {
+      "type": "string",
+      "description": "Custom field: Department if available"
+    },
+    "impact": {
+      "type": "string",
+      "description": "Custom field: Impact if available"
+    },
+    "requestor": {
+      "type": "string",
+      "description": "Custom field: Requestor if available"
+    },
+    "urgency": {
+      "type": "string",
+      "description": "Custom field: Urgency if available"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this issue was in the latest sync"
+    },
+    "is_stale": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this issue was not returned in the latest sync"
+    },
+    "last_synced_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this record was last synced from Jira"
+    },
+    "raw_jira_data": {
+      "type": "object",
+      "description": "Full raw Jira API response for debugging"
+    }
+  },
+  "required": [
+    "issue_key",
+    "summary"
+  ],
+  "unique_fields": [
+    "issue_key"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

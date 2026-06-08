@@ -1,0 +1,81 @@
+{
+  "name": "OverseasPricingRate",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "Country name"
+    },
+    "financial_integrity_cost": {
+      "type": "number",
+      "description": "Supplier cost for Financial Integrity check (\u00a3 ex VAT). Leave blank if not available."
+    },
+    "criminal_history_cost": {
+      "type": "number",
+      "description": "Supplier cost for Criminal History check (\u00a3 ex VAT). Leave blank if not available."
+    },
+    "directorship_cost": {
+      "type": "number",
+      "description": "Supplier cost for Directorship check (\u00a3 ex VAT). Leave blank if not available."
+    },
+    "is_certn_fi": {
+      "type": "boolean",
+      "default": false,
+      "description": "Financial Integrity check is handled via CERTN"
+    },
+    "is_certn_ch": {
+      "type": "boolean",
+      "default": false,
+      "description": "Criminal History check is handled via CERTN"
+    },
+    "is_certn_dir": {
+      "type": "boolean",
+      "default": false,
+      "description": "Directorship check is handled via CERTN"
+    },
+    "vat_rate": {
+      "type": "number",
+      "description": "Supplier VAT rate for overseas checks as decimal",
+      "default": 0.2
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this country appears in the calculator"
+    },
+    "internal_notes": {
+      "type": "string",
+      "description": "Admin notes about this country's pricing"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this rate was last updated"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "Email of admin who last updated this record"
+    }
+  },
+  "required": [
+    "country"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

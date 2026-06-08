@@ -1,0 +1,112 @@
+{
+  "name": "HubConfiguration",
+  "type": "object",
+  "properties": {
+    "hub_key": {
+      "type": "string",
+      "description": "Unique hub identifier (sales, operations, compliance, learning, marketing, innovation)"
+    },
+    "hub_name": {
+      "type": "string",
+      "description": "Display name of the hub (e.g. Sales Hub)"
+    },
+    "hero_title": {
+      "type": "string",
+      "default": "Good morning",
+      "description": "Hero section greeting title"
+    },
+    "hero_subtitle": {
+      "type": "string",
+      "default": "Ready to drive performance today?",
+      "description": "Hero section subtitle"
+    },
+    "hero_badge": {
+      "type": "string",
+      "description": "Badge label shown in hero (e.g. Sales Hub)"
+    },
+    "accent_colour": {
+      "type": "string",
+      "default": "#06b6d4",
+      "description": "Primary accent colour (hex)"
+    },
+    "background_style": {
+      "type": "string",
+      "enum": [
+        "Gradient",
+        "Solid",
+        "Mesh"
+      ],
+      "default": "Gradient",
+      "description": "Hero background style"
+    },
+    "layout_density": {
+      "type": "string",
+      "enum": [
+        "Compact",
+        "Comfortable",
+        "Spacious"
+      ],
+      "default": "Comfortable",
+      "description": "Layout density"
+    },
+    "show_ai_card": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show AI assistant card in hero"
+    },
+    "show_search": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show search bar in hero"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this hub is enabled"
+    },
+    "allowed_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can access this hub (empty = all)"
+    },
+    "allowed_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can access this hub (empty = all)"
+    },
+    "custom_css": {
+      "type": "string",
+      "description": "Custom CSS overrides for this hub"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Admin notes"
+    }
+  },
+  "required": [
+    "hub_key",
+    "hub_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

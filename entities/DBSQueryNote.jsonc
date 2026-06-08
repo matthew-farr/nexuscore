@@ -1,0 +1,55 @@
+{
+  "name": "DBSQueryNote",
+  "type": "object",
+  "properties": {
+    "query_id": {
+      "type": "string",
+      "description": "Reference to DBSQueryTracker record ID"
+    },
+    "note_text": {
+      "type": "string",
+      "description": "Note content"
+    },
+    "note_type": {
+      "type": "string",
+      "enum": [
+        "General Note",
+        "Client Contact",
+        "Client Response",
+        "DBS Response",
+        "Chaser",
+        "Further Clarification",
+        "Internal Update",
+        "Resolution"
+      ],
+      "default": "General Note",
+      "description": "Type of note"
+    }
+  },
+  "required": [
+    "query_id",
+    "note_text"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

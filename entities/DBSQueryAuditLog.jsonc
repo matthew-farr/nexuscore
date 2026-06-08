@@ -1,0 +1,56 @@
+{
+  "name": "DBSQueryAuditLog",
+  "type": "object",
+  "properties": {
+    "query_id": {
+      "type": "string",
+      "description": "Reference to DBSQueryTracker record ID"
+    },
+    "action_type": {
+      "type": "string",
+      "description": "Type of action (created, edited, stage_changed, etc.)"
+    },
+    "field_changed": {
+      "type": "string",
+      "description": "Name of the field that was changed"
+    },
+    "old_value": {
+      "type": "string",
+      "description": "Previous value"
+    },
+    "new_value": {
+      "type": "string",
+      "description": "New value"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Email of user who made the change"
+    }
+  },
+  "required": [
+    "query_id",
+    "action_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

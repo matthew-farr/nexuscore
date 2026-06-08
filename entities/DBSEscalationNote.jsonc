@@ -1,0 +1,44 @@
+{
+  "name": "DBSEscalationNote",
+  "type": "object",
+  "properties": {
+    "escalation_id": {
+      "type": "string",
+      "description": "Reference to DBSEscalation record ID"
+    },
+    "note_text": {
+      "type": "string",
+      "description": "Note content"
+    },
+    "added_by": {
+      "type": "string",
+      "description": "Name or email of user who added the note"
+    }
+  },
+  "required": [
+    "escalation_id",
+    "note_text"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

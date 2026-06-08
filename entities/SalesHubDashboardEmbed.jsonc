@@ -1,0 +1,101 @@
+{
+  "name": "SalesHubDashboardEmbed",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Dashboard name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Dashboard description"
+    },
+    "embed_url": {
+      "type": "string",
+      "description": "Embed iframe URL"
+    },
+    "embed_type": {
+      "type": "string",
+      "enum": [
+        "Power BI",
+        "HubSpot",
+        "Looker Studio",
+        "Custom iframe"
+      ],
+      "description": "Type of embed"
+    },
+    "height": {
+      "type": "number",
+      "default": 460,
+      "description": "Iframe height in pixels"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only one can be active"
+    },
+    "show_header": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show dashboard header"
+    },
+    "open_full_report_url": {
+      "type": "string",
+      "description": "URL to open full report"
+    },
+    "allowed_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can view (empty = all)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Admin notes"
+    }
+  },
+  "required": [
+    "title",
+    "embed_url",
+    "embed_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true,
+          "data.allowed_roles": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.is_active": true,
+          "data.allowed_roles": []
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

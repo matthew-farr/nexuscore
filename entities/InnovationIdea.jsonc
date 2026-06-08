@@ -1,0 +1,158 @@
+{
+  "name": "InnovationIdea",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Idea title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description"
+    },
+    "problem_statement": {
+      "type": "string",
+      "description": "Problem being solved"
+    },
+    "suggested_solution": {
+      "type": "string",
+      "description": "Proposed solution"
+    },
+    "business_benefit": {
+      "type": "string",
+      "description": "Expected business benefit"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Process Improvement",
+        "Technology",
+        "Customer Experience",
+        "Cost Reduction",
+        "Revenue Growth",
+        "Compliance",
+        "People & Culture",
+        "Other"
+      ]
+    },
+    "department": {
+      "type": "string",
+      "enum": [
+        "Operations",
+        "Sales",
+        "Technology",
+        "Compliance",
+        "Finance",
+        "HR",
+        "Marketing",
+        "All Departments"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Submitted",
+        "Reviewing",
+        "Planned",
+        "Building",
+        "Completed",
+        "Not Progressing",
+        "Archived"
+      ],
+      "default": "Submitted"
+    },
+    "submitted_by": {
+      "type": "string"
+    },
+    "submitted_by_id": {
+      "type": "string"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "upvotes_count": {
+      "type": "number",
+      "default": 0
+    },
+    "downvotes_count": {
+      "type": "number",
+      "default": 0
+    },
+    "vote_score": {
+      "type": "number",
+      "default": 0
+    },
+    "comments_count": {
+      "type": "number",
+      "default": 0
+    },
+    "owner": {
+      "type": "string"
+    },
+    "target_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "progress_percentage": {
+      "type": "number",
+      "default": 0
+    },
+    "not_progressing_reason": {
+      "type": "string"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "data.submitted_by_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_archived": false
+        },
+        {
+          "data.submitted_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.submitted_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.submitted_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

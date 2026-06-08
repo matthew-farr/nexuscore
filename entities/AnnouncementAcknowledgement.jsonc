@@ -1,0 +1,56 @@
+{
+  "name": "AnnouncementAcknowledgement",
+  "type": "object",
+  "properties": {
+    "announcement_id": {
+      "type": "string",
+      "description": "Reference to Announcement record"
+    },
+    "user_profile_id": {
+      "type": "string",
+      "description": "Reference to UserProfile record"
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When user acknowledged"
+    },
+    "acknowledgement_required": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether acknowledgement was required at time of record"
+    }
+  },
+  "required": [
+    "announcement_id",
+    "user_profile_id",
+    "acknowledged_at"
+  ],
+  "rls": {
+    "create": {
+      "data.user_profile_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_profile_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

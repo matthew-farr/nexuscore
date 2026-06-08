@@ -1,0 +1,52 @@
+{
+  "name": "DBSEscalationAudit",
+  "type": "object",
+  "properties": {
+    "escalation_id": {
+      "type": "string",
+      "description": "Reference to DBSEscalation record ID"
+    },
+    "field_changed": {
+      "type": "string",
+      "description": "Name of the field that was changed"
+    },
+    "old_value": {
+      "type": "string",
+      "description": "Previous value"
+    },
+    "new_value": {
+      "type": "string",
+      "description": "New value"
+    },
+    "changed_by": {
+      "type": "string",
+      "description": "Name or email of user who made the change"
+    }
+  },
+  "required": [
+    "escalation_id",
+    "field_changed"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

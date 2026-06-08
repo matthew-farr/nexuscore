@@ -1,0 +1,160 @@
+{
+  "name": "SkillMatrixRecord",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "User ID"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "User display name"
+    },
+    "department": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments (e.g. Sales, Admin, Operations)"
+    },
+    "role": {
+      "type": "string",
+      "description": "Job role"
+    },
+    "skill_id": {
+      "type": "string",
+      "description": "Reference to Skill entity"
+    },
+    "skill_category": {
+      "type": "string",
+      "enum": [
+        "DBS Checks",
+        "Employment Screening",
+        "Checks Direct Portal",
+        "Customer Service",
+        "Sales / Account Management",
+        "Compliance",
+        "Systems & Tools",
+        "Internal Processes",
+        "Management / Leadership"
+      ],
+      "description": "Skill category"
+    },
+    "skill_name": {
+      "type": "string",
+      "description": "Specific skill name"
+    },
+    "rating": {
+      "type": "number",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "description": "Current skill rating 1-5"
+    },
+    "rating_label": {
+      "type": "string",
+      "enum": [
+        "No Knowledge",
+        "Limited Knowledge",
+        "Competent",
+        "High Knowledge",
+        "Champion"
+      ],
+      "description": "Human-readable rating label"
+    },
+    "evidence_notes": {
+      "type": "string",
+      "description": "Staff's own notes on their proficiency"
+    },
+    "manager_notes": {
+      "type": "string",
+      "description": "Manager's assessment notes"
+    },
+    "last_reviewed_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of last review"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "description": "Manager who reviewed"
+    },
+    "target_rating": {
+      "type": "number",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "description": "Target skill rating"
+    },
+    "development_action": {
+      "type": "string",
+      "description": "Planned development action"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Medium",
+        "High",
+        "Critical"
+      ],
+      "default": "Medium",
+      "description": "Development priority"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Not Started",
+        "In Progress",
+        "Competent",
+        "Needs Development",
+        "Champion"
+      ],
+      "default": "Not Started",
+      "description": "Current status"
+    }
+  },
+  "required": [
+    "user_id",
+    "skill_id",
+    "skill_category",
+    "skill_name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

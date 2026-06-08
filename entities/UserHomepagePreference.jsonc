@@ -1,0 +1,110 @@
+{
+  "name": "UserHomepagePreference",
+  "type": "object",
+  "properties": {
+    "user_profile_id": {
+      "type": "string"
+    },
+    "visible_quick_link_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hidden_quick_link_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "quick_link_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "visible_hub_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hidden_hub_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hub_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "visible_widget_keys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hidden_widget_keys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "widget_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "layout_settings": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "user_profile_id"
+  ],
+  "rls": {
+    "create": {
+      "data.user_profile_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_profile_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_profile_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_profile_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

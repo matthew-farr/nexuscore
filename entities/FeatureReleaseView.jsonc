@@ -1,0 +1,57 @@
+{
+  "name": "FeatureReleaseView",
+  "type": "object",
+  "properties": {
+    "release_id": {
+      "type": "string",
+      "description": "Reference to FeatureRelease"
+    },
+    "release_title": {
+      "type": "string",
+      "description": "Title of the release"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "User who viewed the release"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "Display name of viewer"
+    },
+    "staff_code": {
+      "type": "string",
+      "description": "Staff code of viewer"
+    },
+    "viewed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the release was viewed"
+    }
+  },
+  "required": [
+    "release_id",
+    "user_id"
+  ],
+  "unique_fields": [
+    "release_id",
+    "user_id"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

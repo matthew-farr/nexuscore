@@ -1,0 +1,206 @@
+{
+  "name": "KnowledgeDocument",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Document title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description / summary"
+    },
+    "content": {
+      "type": "string",
+      "description": "Rich HTML or markdown body (for inline docs)"
+    },
+    "doc_type": {
+      "type": "string",
+      "enum": [
+        "Policy",
+        "Process",
+        "User Guide",
+        "FAQ",
+        "Video",
+        "External Link",
+        "Template",
+        "Form",
+        "Process Map",
+        "Training Resource"
+      ],
+      "default": "Policy"
+    },
+    "audience": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Audience keys: internal, client, applicant"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Products",
+        "Compliance",
+        "Operations",
+        "Systems & Software",
+        "Sales & Account Management",
+        "Finance & Commercial",
+        "Marketing & Communications",
+        "Company Information"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Published",
+        "Under Review",
+        "Archived"
+      ],
+      "default": "Draft"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "All Staff",
+        "Manager Only",
+        "Admin Only",
+        "Role Based",
+        "Department Based"
+      ],
+      "default": "All Staff"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Owner display name"
+    },
+    "owner_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0"
+    },
+    "review_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_updated_by": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "Uploaded file URL (HTML guide, Word doc, etc.)"
+    },
+    "pdf_url": {
+      "type": "string",
+      "description": "Uploaded PDF version URL"
+    },
+    "external_url": {
+      "type": "string",
+      "description": "External link URL"
+    },
+    "thumbnail_url": {
+      "type": "string"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_pinned": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_compliance_critical": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_internal_only": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this document is internal only (not shareable)"
+    },
+    "is_client_shareable": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_applicant_shareable": {
+      "type": "boolean",
+      "default": false
+    },
+    "public_share_token": {
+      "type": "string"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0
+    },
+    "download_count": {
+      "type": "number",
+      "default": 0
+    },
+    "department": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "doc_type",
+    "category"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "Published",
+          "data.visibility": "All Staff"
+        },
+        {
+          "data.status": "Published",
+          "data.visibility": "Manager Only",
+          "user_condition": {
+            "role": "manager"
+          }
+        },
+        {
+          "data.status": "Published",
+          "data.visibility": "Admin Only",
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

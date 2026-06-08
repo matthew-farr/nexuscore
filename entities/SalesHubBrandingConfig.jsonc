@@ -1,0 +1,86 @@
+{
+  "name": "SalesHubBrandingConfig",
+  "type": "object",
+  "properties": {
+    "hero_title": {
+      "type": "string",
+      "default": "Good morning",
+      "description": "Hero section title"
+    },
+    "hero_subtitle": {
+      "type": "string",
+      "default": "Ready to drive performance today?",
+      "description": "Hero section subtitle"
+    },
+    "hero_badge": {
+      "type": "string",
+      "default": "Sales Hub",
+      "description": "Hero badge text"
+    },
+    "background_style": {
+      "type": "string",
+      "enum": [
+        "Gradient",
+        "Solid",
+        "Mesh"
+      ],
+      "default": "Gradient",
+      "description": "Background style"
+    },
+    "accent_colour": {
+      "type": "string",
+      "default": "#06b6d4",
+      "description": "Accent color (hex)"
+    },
+    "show_ai_card": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show AI assistant card"
+    },
+    "show_search": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show search bar"
+    },
+    "default_tab": {
+      "type": "string",
+      "default": "overview",
+      "description": "Default active tab"
+    },
+    "layout_density": {
+      "type": "string",
+      "enum": [
+        "Compact",
+        "Comfortable",
+        "Spacious"
+      ],
+      "default": "Comfortable",
+      "description": "Layout density"
+    },
+    "custom_css": {
+      "type": "string",
+      "description": "Custom CSS overrides"
+    }
+  },
+  "required": [
+    "hero_title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

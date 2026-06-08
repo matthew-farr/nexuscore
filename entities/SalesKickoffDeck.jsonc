@@ -1,0 +1,122 @@
+{
+  "name": "SalesKickoffDeck",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Presentation title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Presentation description"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Publication status"
+    },
+    "audience_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can view this deck"
+    },
+    "audience_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can view this deck"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the deck was published"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "User ID who created the deck"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "User ID who last updated the deck"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "published",
+          "$or": [
+            {
+              "data.audience_roles": {
+                "$in": [
+                  "{{user.role}}"
+                ]
+              }
+            },
+            {
+              "data.audience_departments": {
+                "$in": [
+                  "{{user.data.department}}"
+                ]
+              }
+            },
+            {
+              "data.audience_roles": []
+            },
+            {
+              "data.audience_departments": []
+            }
+          ]
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

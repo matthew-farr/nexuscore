@@ -1,0 +1,34 @@
+{
+  "name": "OperationsIssueUpdate",
+  "type": "object",
+  "properties": {
+    "issue_id": {
+      "type": "string",
+      "description": "Reference to OperationsIssue record ID"
+    },
+    "update_text": {
+      "type": "string",
+      "description": "Update content"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Display name of user who added the update"
+    }
+  },
+  "required": [
+    "issue_id",
+    "update_text"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {},
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

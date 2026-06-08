@@ -1,0 +1,58 @@
+{
+  "name": "PriceListTemplate",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Template name (e.g. 'Default Branding', 'Q2 2024')"
+    },
+    "html_file_url": {
+      "type": "string",
+      "description": "URL to uploaded HTML template file"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is the active template for PDF export"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Email of admin who uploaded"
+    },
+    "uploaded_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When template was uploaded"
+    },
+    "preview_note": {
+      "type": "string",
+      "description": "Admin notes about this template"
+    }
+  },
+  "required": [
+    "name",
+    "html_file_url"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

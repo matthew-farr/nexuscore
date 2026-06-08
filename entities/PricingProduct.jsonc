@@ -1,0 +1,110 @@
+{
+  "name": "PricingProduct",
+  "type": "object",
+  "properties": {
+    "product_name": {
+      "type": "string",
+      "description": "Display name of the product"
+    },
+    "product_category": {
+      "type": "string",
+      "description": "Internal grouping category"
+    },
+    "product_type": {
+      "type": "string",
+      "enum": [
+        "DBS",
+        "Digital ID",
+        "Right to Work",
+        "Overseas",
+        "Referencing",
+        "Training",
+        "AML",
+        "Other"
+      ],
+      "description": "Product type classification"
+    },
+    "supplier_cost_ex_vat": {
+      "type": "number",
+      "description": "Supplier cost excluding VAT (\u00a3)"
+    },
+    "supplier_vat_rate": {
+      "type": "number",
+      "description": "Supplier VAT rate as decimal e.g. 0.20 for 20%",
+      "default": 0
+    },
+    "supplier_cost_inc_vat": {
+      "type": "number",
+      "description": "Supplier cost including VAT \u2014 auto-calculated field for reference"
+    },
+    "default_service_fee_ex_vat": {
+      "type": "number",
+      "description": "Default Checks Direct service fee / GP ex VAT (\u00a3)",
+      "default": 0
+    },
+    "service_fee_vat_rate": {
+      "type": "number",
+      "description": "VAT rate on service fee \u2014 always 0.20 unless special arrangement",
+      "default": 0.2
+    },
+    "customer_price_ex_vat": {
+      "type": "number",
+      "description": "Calculated customer price ex VAT \u2014 reference only"
+    },
+    "customer_price_inc_vat": {
+      "type": "number",
+      "description": "Calculated customer price inc VAT \u2014 reference only"
+    },
+    "is_vatable_product": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the supplier product cost attracts VAT"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether product is visible in the Pricing Calculator"
+    },
+    "display_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Sort order within the product dropdown"
+    },
+    "internal_notes": {
+      "type": "string",
+      "description": "Admin-only notes about this product/pricing"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When pricing was last updated"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "Email of admin who last updated this record"
+    }
+  },
+  "required": [
+    "product_name",
+    "product_type",
+    "supplier_cost_ex_vat"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

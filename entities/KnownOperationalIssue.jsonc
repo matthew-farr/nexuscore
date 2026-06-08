@@ -1,0 +1,77 @@
+{
+  "name": "KnownOperationalIssue",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Short descriptive title of the known issue"
+    },
+    "affected_service": {
+      "type": "string",
+      "enum": [
+        "DBS Submissions",
+        "DVLA / Driving Licence",
+        "Right to Work",
+        "ID Verification",
+        "Candidate Portal",
+        "Customer Portal",
+        "Payments / Stripe",
+        "Overseas Checks",
+        "Supplier Checks",
+        "HubSpot",
+        "Power BI / Reporting",
+        "Other"
+      ],
+      "description": "Which service this known issue relates to"
+    },
+    "symptoms": {
+      "type": "string",
+      "description": "What staff typically see or experience"
+    },
+    "workaround": {
+      "type": "string",
+      "description": "Immediate steps to mitigate the issue"
+    },
+    "resolution": {
+      "type": "string",
+      "description": "Known fix or awaiting supplier resolution"
+    },
+    "occurrence_count": {
+      "type": "number",
+      "default": 0,
+      "description": "How many times this issue has been seen"
+    },
+    "last_seen_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this issue was last reported"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this known issue is still relevant"
+    }
+  },
+  "required": [
+    "title",
+    "affected_service"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

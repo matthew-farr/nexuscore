@@ -1,0 +1,68 @@
+{
+  "name": "InnovationVote",
+  "type": "object",
+  "properties": {
+    "idea_id": {
+      "type": "string",
+      "description": "Reference to InnovationIdea"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "User who voted"
+    },
+    "vote_type": {
+      "type": "string",
+      "enum": [
+        "upvote",
+        "downvote"
+      ],
+      "description": "Vote type"
+    }
+  },
+  "required": [
+    "idea_id",
+    "user_id",
+    "vote_type"
+  ],
+  "rls": {
+    "create": {
+      "data.user_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

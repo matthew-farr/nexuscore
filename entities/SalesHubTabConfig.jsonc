@@ -1,0 +1,96 @@
+{
+  "name": "SalesHubTabConfig",
+  "type": "object",
+  "properties": {
+    "hub_key": {
+      "type": "string",
+      "default": "sales",
+      "description": "Which hub this tab belongs to (sales, operations, compliance, etc.)"
+    },
+    "tab_key": {
+      "type": "string",
+      "description": "Unique key for this tab (e.g. overview, analytics, sales_tools)"
+    },
+    "label": {
+      "type": "string",
+      "description": "Display label shown to users"
+    },
+    "sort_order": {
+      "type": "number",
+      "default": 0,
+      "description": "Display order (ascending)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this tab is visible"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name (optional)"
+    },
+    "required_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see this tab (empty = all)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Admin description of this tab's purpose"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is the default active tab"
+    },
+    "config_json": {
+      "type": "object",
+      "description": "Tab page builder config: { layout: 'single'|'two'|'three'|'dashboard', sections: [] }"
+    }
+  },
+  "required": [
+    "hub_key",
+    "tab_key",
+    "label"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true,
+          "data.required_roles": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.is_active": true,
+          "data.required_roles": []
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

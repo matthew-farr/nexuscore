@@ -1,0 +1,62 @@
+{
+  "name": "IndustryAssignment",
+  "type": "object",
+  "properties": {
+    "industry_name": {
+      "type": "string",
+      "description": "Industry name"
+    },
+    "owner": {
+      "type": "string",
+      "enum": [
+        "Sam",
+        "Claire",
+        "Sandra"
+      ],
+      "description": "Assigned owner"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Archived"
+      ],
+      "default": "Active",
+      "description": "Active or Archived"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "Email of user who last updated"
+    }
+  },
+  "required": [
+    "industry_name",
+    "owner"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

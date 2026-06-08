@@ -1,0 +1,133 @@
+{
+  "name": "Activity",
+  "type": "object",
+  "properties": {
+    "activity_type": {
+      "type": "string",
+      "enum": [
+        "viewed",
+        "created",
+        "updated",
+        "deleted",
+        "completed",
+        "assigned",
+        "published",
+        "uploaded",
+        "announcement",
+        "training_completed",
+        "login",
+        "onboarding_step_completed"
+      ],
+      "description": "Type of activity performed"
+    },
+    "title": {
+      "type": "string",
+      "description": "Activity title/summary"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the activity"
+    },
+    "entity_type": {
+      "type": "string",
+      "description": "Type of entity affected (hub, document, course, etc.)"
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "ID of the entity affected"
+    },
+    "route": {
+      "type": "string",
+      "description": "Route to navigate back to the item"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name for the activity"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional context as JSON"
+    },
+    "performed_by_user_id": {
+      "type": "string",
+      "description": "User ID who performed the activity"
+    },
+    "performed_by_name": {
+      "type": "string",
+      "description": "Display name of user who performed activity"
+    },
+    "department": {
+      "type": "string",
+      "description": "Department of user who performed activity"
+    },
+    "visibility_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see this activity"
+    },
+    "visibility_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can see this activity"
+    },
+    "is_system_activity": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether activity is system-generated vs user-initiated"
+    }
+  },
+  "required": [
+    "activity_type",
+    "title",
+    "entity_type",
+    "entity_id"
+  ],
+  "rls": {
+    "create": {
+      "performed_by_user_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.performed_by_user_id": "{{user.id}}"
+        },
+        {
+          "data.visibility_roles": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.visibility_departments": {
+            "$in": [
+              "{{user.data.department}}"
+            ]
+          }
+        },
+        {
+          "data.is_system_activity": true
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

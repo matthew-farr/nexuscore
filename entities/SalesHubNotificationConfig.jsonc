@@ -1,0 +1,105 @@
+{
+  "name": "SalesHubNotificationConfig",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Notification title"
+    },
+    "message": {
+      "type": "string",
+      "description": "Notification message"
+    },
+    "notification_type": {
+      "type": "string",
+      "enum": [
+        "Info",
+        "Warning",
+        "Success",
+        "Alert",
+        "Update"
+      ],
+      "description": "Type of notification"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "Low",
+        "Medium",
+        "High",
+        "Critical"
+      ],
+      "default": "Medium",
+      "description": "Priority level"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether notification is visible"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When notification becomes visible"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When notification expires"
+    },
+    "role_visibility": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see (empty = all)"
+    },
+    "link_url": {
+      "type": "string",
+      "description": "Optional link URL"
+    }
+  },
+  "required": [
+    "title",
+    "message",
+    "notification_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true,
+          "data.role_visibility": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.is_active": true,
+          "data.role_visibility": []
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

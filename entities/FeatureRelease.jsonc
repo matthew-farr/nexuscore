@@ -1,0 +1,136 @@
+{
+  "name": "FeatureRelease",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Release title"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Short one-line summary for the draft queue"
+    },
+    "release_notes": {
+      "type": "string",
+      "description": "Full release notes"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "New Feature",
+        "Improvement",
+        "Bug Fix",
+        "Security Update",
+        "Internal Update"
+      ],
+      "default": "New Feature",
+      "description": "Release type / category"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ],
+      "default": "draft"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "auto",
+        "jira",
+        "system"
+      ],
+      "default": "manual",
+      "description": "How this draft was created"
+    },
+    "related_area": {
+      "type": "string",
+      "description": "Which area of the platform this relates to"
+    },
+    "related_ticket": {
+      "type": "string",
+      "description": "Jira or internal ticket reference"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Display name of who created the draft"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Display name of who published this"
+    },
+    "release_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of release"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Exact datetime when published"
+    },
+    "app_deployment_id": {
+      "type": "string",
+      "description": "Reference to the AppDeployment record (if included in a deployment)"
+    },
+    "deployment_version": {
+      "type": "string",
+      "description": "Deployment version for display only (copied from linked AppDeployment)"
+    },
+    "is_major_release": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pin/highlight as a major launch"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "all_staff",
+        "admin_only"
+      ],
+      "default": "all_staff",
+      "description": "Who can see this release"
+    },
+    "view_count": {
+      "type": "number",
+      "default": 0,
+      "description": "Number of unique staff who have viewed this release"
+    }
+  },
+  "required": [
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "published",
+          "data.visibility": "all_staff"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

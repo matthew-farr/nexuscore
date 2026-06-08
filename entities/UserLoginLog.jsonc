@@ -1,0 +1,46 @@
+{
+  "name": "UserLoginLog",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "User ID who logged in"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "User display name"
+    },
+    "staff_code": {
+      "type": "string",
+      "description": "User staff code from UserProfile"
+    },
+    "login_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the user logged in"
+    }
+  },
+  "required": [
+    "user_id"
+  ],
+  "rls": {
+    "create": {
+      "data.user_id": "{{user.id}}"
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

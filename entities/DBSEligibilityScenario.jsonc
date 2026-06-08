@@ -1,0 +1,139 @@
+{
+  "name": "DBSEligibilityScenario",
+  "type": "object",
+  "properties": {
+    "role_title": {
+      "type": "string",
+      "description": "Role or scenario title"
+    },
+    "sector": {
+      "type": "string",
+      "description": "Sector (e.g. Education, Care, Healthcare)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief summary of the scenario"
+    },
+    "likely_check_level": {
+      "type": "string",
+      "enum": [
+        "Basic DBS",
+        "Standard DBS",
+        "Enhanced DBS",
+        "Enhanced DBS with Children's Barred List",
+        "Enhanced DBS with Adults' Barred List",
+        "Enhanced DBS with Children's and Adults' Barred Lists",
+        "Not enough information",
+        "Escalate to Compliance"
+      ],
+      "description": "Likely DBS check level"
+    },
+    "workforce": {
+      "type": "string",
+      "enum": [
+        "Child Workforce",
+        "Adult Workforce",
+        "Child and Adult Workforce",
+        "Other Workforce",
+        "No Workforce",
+        "Not Sure"
+      ],
+      "description": "Workforce category"
+    },
+    "children_barred_list": {
+      "type": "string",
+      "enum": [
+        "Likely Required",
+        "May Be Required",
+        "Not Usually Required",
+        "Not Enough Information",
+        "Escalate to Compliance"
+      ],
+      "description": "Children barred list indicator"
+    },
+    "adults_barred_list": {
+      "type": "string",
+      "enum": [
+        "Likely Required",
+        "May Be Required",
+        "Not Usually Required",
+        "Not Enough Information",
+        "Escalate to Compliance"
+      ],
+      "description": "Adults barred list indicator"
+    },
+    "frequency_test_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether frequency test is relevant"
+    },
+    "frequency_test_text": {
+      "type": "string",
+      "description": "Custom frequency test guidance text"
+    },
+    "adult_barred_list_criteria": {
+      "type": "string",
+      "description": "Specific adult barred list criteria notes"
+    },
+    "key_questions": {
+      "type": "string",
+      "description": "Key questions to ask (newline separated)"
+    },
+    "guidance_notes": {
+      "type": "string",
+      "description": "Additional guidance notes"
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether escalation to Compliance is required"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Draft",
+        "Archived",
+        "Needs Compliance Review"
+      ],
+      "default": "Active",
+      "description": "Scenario status"
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "Email of user who last updated"
+    }
+  },
+  "required": [
+    "role_title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "Active"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

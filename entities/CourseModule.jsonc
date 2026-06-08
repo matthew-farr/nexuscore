@@ -1,0 +1,76 @@
+{
+  "name": "CourseModule",
+  "type": "object",
+  "properties": {
+    "course_id": {
+      "type": "string",
+      "description": "Parent course ID"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "description": "Module content (markdown/HTML)"
+    },
+    "module_order": {
+      "type": "number",
+      "default": 1
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "article",
+        "video",
+        "quiz",
+        "file",
+        "external_link"
+      ],
+      "default": "article"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "default": 10
+    },
+    "is_required": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "course_id",
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

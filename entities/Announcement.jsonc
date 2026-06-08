@@ -1,0 +1,181 @@
+{
+  "name": "Announcement",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Announcement title"
+    },
+    "excerpt": {
+      "type": "string",
+      "description": "Short summary for preview"
+    },
+    "body": {
+      "type": "string",
+      "description": "Full announcement content (markdown supported)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "company_update",
+        "operations",
+        "sales",
+        "training",
+        "compliance",
+        "system",
+        "product",
+        "people"
+      ],
+      "default": "company_update",
+      "description": "Announcement category"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "published",
+        "archived"
+      ],
+      "default": "draft",
+      "description": "Publication status"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium",
+      "description": "Priority level for display"
+    },
+    "cover_image_url": {
+      "type": "string",
+      "description": "URL to cover/hero image"
+    },
+    "author_user_id": {
+      "type": "string",
+      "description": "ID of user who created announcement"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Display name of author"
+    },
+    "publish_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When announcement goes live (null = immediate)"
+    },
+    "expiry_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When announcement expires and hides (null = never)"
+    },
+    "requires_acknowledgement": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether staff must acknowledge reading"
+    },
+    "visibility_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see (empty = all)"
+    },
+    "visibility_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can see (empty = all)"
+    },
+    "is_pinned": {
+      "type": "boolean",
+      "default": false,
+      "description": "Pinned announcements appear first"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Soft delete via is_active"
+    },
+    "route": {
+      "type": "string",
+      "description": "Optional internal route link"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional context as JSON"
+    }
+  },
+  "required": [
+    "title",
+    "body",
+    "category",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.status": "published",
+          "$or": [
+            {
+              "data.visibility_roles": {
+                "$in": [
+                  "{{user.role}}"
+                ]
+              }
+            },
+            {
+              "data.visibility_departments": {
+                "$in": [
+                  "{{user.data.department}}"
+                ]
+              }
+            },
+            {
+              "data.visibility_roles": []
+            },
+            {
+              "data.visibility_departments": []
+            }
+          ]
+        },
+        {
+          "data.author_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.author_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "name": "SalesKickoffSlide",
+  "type": "object",
+  "properties": {
+    "deck_id": {
+      "type": "string",
+      "description": "Reference to SalesKickoffDeck"
+    },
+    "slide_order": {
+      "type": "number",
+      "description": "Display order within the deck"
+    },
+    "title": {
+      "type": "string",
+      "description": "Slide title"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Slide subtitle"
+    },
+    "content_html": {
+      "type": "string",
+      "description": "Rich HTML content for the slide"
+    },
+    "layout_type": {
+      "type": "string",
+      "enum": [
+        "hero",
+        "kpi_grid",
+        "team_structure",
+        "timeline",
+        "hubspot_rules",
+        "resource_cards",
+        "acknowledgement"
+      ],
+      "description": "Slide layout template"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name"
+    },
+    "accent_colour": {
+      "type": "string",
+      "enum": [
+        "pink",
+        "purple",
+        "cyan"
+      ],
+      "default": "pink",
+      "description": "Accent colour theme"
+    },
+    "presenter_notes": {
+      "type": "string",
+      "description": "Notes for presenters"
+    },
+    "resource_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Related resource links"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the slide is visible"
+    }
+  },
+  "required": [
+    "deck_id",
+    "slide_order",
+    "title",
+    "layout_type"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

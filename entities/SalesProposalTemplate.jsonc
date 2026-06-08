@@ -1,0 +1,91 @@
+{
+  "name": "SalesProposalTemplate",
+  "type": "object",
+  "properties": {
+    "template_name": {
+      "type": "string",
+      "description": "Template display name"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "Standard Proposal",
+        "Enterprise Proposal",
+        "Renewal Proposal",
+        "One-page Summary",
+        "Price List"
+      ],
+      "description": "Type of template"
+    },
+    "html_template": {
+      "type": "string",
+      "description": "HTML template content"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether template is available"
+    },
+    "default_theme": {
+      "type": "string",
+      "enum": [
+        "Light",
+        "Dark"
+      ],
+      "default": "Light",
+      "description": "Default theme"
+    },
+    "version": {
+      "type": "string",
+      "default": "1.0",
+      "description": "Template version"
+    },
+    "description": {
+      "type": "string",
+      "description": "Template description"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Email of creator"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last updated"
+    }
+  },
+  "required": [
+    "template_name",
+    "template_type",
+    "html_template"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "$or": [
+        {
+          "data.is_active": true
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

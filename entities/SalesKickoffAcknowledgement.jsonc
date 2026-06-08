@@ -1,0 +1,58 @@
+{
+  "name": "SalesKickoffAcknowledgement",
+  "type": "object",
+  "properties": {
+    "deck_id": {
+      "type": "string",
+      "description": "Reference to SalesKickoffDeck"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "Staff member who acknowledged"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "Staff member display name"
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the acknowledgement was made"
+    },
+    "acknowledgement_text": {
+      "type": "string",
+      "description": "Custom acknowledgement message"
+    }
+  },
+  "required": [
+    "deck_id",
+    "user_id"
+  ],
+  "rls": {
+    "create": {
+      "data.user_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

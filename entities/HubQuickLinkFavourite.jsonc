@@ -1,0 +1,36 @@
+{
+  "name": "HubQuickLinkFavourite",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Auth user ID"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "HubContentItem ID"
+    },
+    "hub_key": {
+      "type": "string",
+      "description": "Which hub this favourite belongs to"
+    }
+  },
+  "required": [
+    "user_id",
+    "item_id"
+  ],
+  "rls": {
+    "create": {
+      "data.user_id": "{{user.id}}"
+    },
+    "read": {
+      "data.user_id": "{{user.id}}"
+    },
+    "update": {
+      "data.user_id": "{{user.id}}"
+    },
+    "delete": {
+      "data.user_id": "{{user.id}}"
+    }
+  }
+}

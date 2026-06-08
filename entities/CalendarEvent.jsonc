@@ -1,0 +1,173 @@
+{
+  "name": "CalendarEvent",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Event title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Event description"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "company_event",
+        "training",
+        "meeting",
+        "birthday",
+        "anniversary",
+        "deadline",
+        "announcement",
+        "compliance",
+        "system"
+      ],
+      "description": "Type of event"
+    },
+    "start_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Event start date and time"
+    },
+    "end_datetime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Event end date and time"
+    },
+    "all_day": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether event spans entire day(s)"
+    },
+    "location": {
+      "type": "string",
+      "description": "Physical or virtual meeting location"
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "Type of related entity (e.g., 'training_course', 'team', 'user')"
+    },
+    "related_entity_id": {
+      "type": "string",
+      "description": "ID of the related entity"
+    },
+    "route": {
+      "type": "string",
+      "description": "Route to navigate to event details or related page"
+    },
+    "colour": {
+      "type": "string",
+      "description": "Hex colour for event display",
+      "default": "#0ea5e9"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Lucide icon name for event type"
+    },
+    "visibility_roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles that can see this event (empty = all)"
+    },
+    "visibility_departments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Departments that can see this event (empty = all)"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether event is active/visible"
+    },
+    "is_recurring": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether event repeats"
+    },
+    "recurrence_rule": {
+      "type": "string",
+      "description": "RFC 5545 recurrence rule (e.g., FREQ=MONTHLY;BYDAY=2FR)"
+    },
+    "reminder_minutes": {
+      "type": "number",
+      "description": "Minutes before event to send reminder (0 = no reminder)",
+      "default": 0
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional event context as JSON"
+    }
+  },
+  "required": [
+    "title",
+    "event_type",
+    "start_datetime",
+    "end_datetime"
+  ],
+  "rls": {
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.visibility_roles": {
+            "$in": [
+              "{{user.role}}"
+            ]
+          }
+        },
+        {
+          "data.visibility_departments": {
+            "$in": [
+              "{{user.data.department}}"
+            ]
+          }
+        },
+        {
+          "data.visibility_roles": []
+        },
+        {
+          "data.visibility_departments": []
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
